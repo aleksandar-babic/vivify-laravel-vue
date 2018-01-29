@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -47,8 +48,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $countries = Config::get('countries');
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'company' => 'required|string|max:255',
+            'country' => 'required|string|max:255|in:countries',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -63,9 +68,23 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
+            'company' => $data['company'],
+            'country' => $data['country'],
         ]);
+    }
+
+    /**
+     * Show registration form with predefined countries
+     *
+     * @return void
+     */
+    public function showRegistrationForm()
+    {
+        $countries = Config::get('countries');
+        return view('auth.register', ['countries' => $countries]);
     }
 }

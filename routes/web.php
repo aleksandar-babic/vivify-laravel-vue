@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+//Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
