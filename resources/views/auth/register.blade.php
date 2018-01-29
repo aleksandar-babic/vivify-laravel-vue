@@ -15,7 +15,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -51,7 +51,7 @@
                             <label for="firstname" class="col-md-4 control-label">First Name</label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required autofocus>
+                                <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required>
 
                                 @if ($errors->has('firstname'))
                                     <span class="help-block">
@@ -65,7 +65,7 @@
                             <label for="lastname" class="col-md-4 control-label">Last Name</label>
 
                             <div class="col-md-6">
-                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required autofocus>
+                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required>
 
                                 @if ($errors->has('lastname'))
                                     <span class="help-block">
@@ -79,7 +79,7 @@
                             <label for="company" class="col-md-4 control-label">Company</label>
 
                             <div class="col-md-6">
-                                <input id="company" type="text" class="form-control" name="company" value="{{ old('company') }}" required autofocus>
+                                <input id="company" type="text" class="form-control" name="company" value="{{ old('company') }}" required >
 
                                 @if ($errors->has('company'))
                                     <span class="help-block">
