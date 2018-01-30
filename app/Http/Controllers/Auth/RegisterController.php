@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -52,7 +51,7 @@ class RegisterController extends Controller
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'company' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
+            'country' => 'required|string|max:255|in:'.implode(',',config('countries')),
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -83,7 +82,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        $countries = Config::get('countries');
+        $countries = config('countries');
         return view('auth.register', ['countries' => $countries]);
     }
 }
