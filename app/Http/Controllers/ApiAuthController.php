@@ -8,15 +8,6 @@ use Tymon\JWTAuth\Facades\JWTFactory;
 
 class ApiAuthController extends Controller
 {
-    /**
-     * Create a new ApiAuthController instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login']]);
-    }
 
     /**
      * Get a JWT via given credentials.
