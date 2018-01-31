@@ -7,11 +7,6 @@
         <span id="reauth-email" class="reauth-email"></span>
         <input type="email" v-model="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <input type="password" v-model="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div id="remember" class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
         <button @click="login" class="btn btn-lg btn-primary btn-block btn-signin">Sign in</button>
       </form>
     </div>
