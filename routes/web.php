@@ -21,3 +21,6 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/spa', 'SpaController@index')->where('any', '.*');
+Route::get('/spa/{any}', 'SpaController@index')->where('any', '.*');
+
