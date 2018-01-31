@@ -13,9 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
+/**
+ * Route group for routes related to Authentications
+ */
 Route::group([
 
-    'middleware' => 'api',
     'prefix' => 'auth'
 
 ], function ($router) {
@@ -25,4 +27,15 @@ Route::group([
     Route::post('refresh', 'ApiAuthController@refresh');
     Route::post('me', 'ApiAuthController@me');
 
+});
+
+/**
+ * Routes for Task CRUD operations
+ */
+Route::group([
+
+    'middleware' => 'auth:api'
+
+], function ($router) {
+    Route::resource('tasks', 'TaskController');
 });

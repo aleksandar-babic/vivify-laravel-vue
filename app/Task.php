@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    // Temporary while JWT is not implemented
-    protected $guarded = [];
+    /**
+     * Get user that owns task
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
