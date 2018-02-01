@@ -1,6 +1,18 @@
 <template>
-    <p>This is the homepage</p>
+    <div class="content">
+        <header-bar></header-bar>
+        <div class="container">
+            <p>This is the homepage</p>
+        </div>
+    </div>
 </template>
 <script>
-    export default {}
+    import HeaderBar from '../components/HeaderBar'
+
+    export default {
+        name: 'Home',
+        components: {
+            HeaderBar
+        }
+    }
 </script>

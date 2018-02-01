@@ -11,6 +11,7 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router'
 import App from './views/App'
 import Home from './views/Home'
+import Login from './views/Login'
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,6 +30,11 @@ const router = new VueRouter({
             path: '/spa/',
             name: 'home',
             component: Home
+        },
+        {
+            path: '/spa/login',
+            name: 'login',
+            component: Login
         }
     ]
 });
