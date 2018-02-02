@@ -5,44 +5,36 @@
  */
 require('./bootstrap');
 
-window.Vue = require('vue');
-
 import VueRouter from 'vue-router'
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import VueAuth from '../../../node_modules/vue-auth/node_modules/@websanova/vue-auth';
+import VueAuthBearer from '../../../node_modules/vue-auth/node_modules/@websanova/vue-auth/drivers/auth/bearer.js';
+import VueAuthAxios from '../../../node_modules/vue-auth/node_modules/@websanova/vue-auth/drivers/http/axios.1.x.js';
+import VueAuthRouter from '../../../node_modules/vue-auth/node_modules/@websanova/vue-auth/drivers/router/vue-router.2.x.js';
+import App from './views/App';
+import store from './store';
+import router from './router';
 
-import App from './views/App'
-import Home from './views/Home'
-import Login from './views/Login'
+window.Vue = require('vue');
+window.BASE_URL = 'http://localhost:8000/api';
 
 Vue.use(VueRouter);
-const router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {
-            path: '/spa/',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/spa/login',
-            name: 'login',
-            component: Login
-        }
-    ]
-});
-Vue.router = router;
-
 Vue.use(VueAxios, axios);
-Vue.axios.defaults.baseURL = 'http://localhost:8000/api';
-Vue.use(require('../../../node_modules/vue-auth/node_modules/@websanova/vue-auth'), {
-    auth: require('../../../node_modules/vue-auth/node_modules/@websanova/vue-auth/drivers/auth/bearer.js'),
-    http: require('../../../node_modules/vue-auth/node_modules/@websanova/vue-auth/drivers/http/axios.1.x.js'),
-    router: require('../../../node_modules/vue-auth/node_modules/@websanova/vue-auth/drivers/router/vue-router.2.x.js')
-});
+Vue.router = router;
+Vue.axios.defaults.baseURL = window.BASE_URL;
+Vue.use(VueAuth,
+    {
+        auth: VueAuthBearer,
+        http: VueAuthAxios,
+        router: VueAuthRouter,
+        authRedirect: '/spa/login'
+    }
+);
 
 const app = new Vue({
     el: '#app',
     components: {App},
-    router
+    router,
+    store
 });
