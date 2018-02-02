@@ -3,13 +3,13 @@
         <div class="card card-container">
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
             <p id="profile-name" class="profile-name-card"></p>
-            <form class="form-signin">
+            <form class="form-signin" @submit.prevent="login">
                 <span id="reauth-email" class="reauth-email"></span>
                 <input type="email" v-model="email" id="inputEmail" class="form-control" placeholder="Email address"
                        required autofocus>
                 <input type="password" v-model="password" id="inputPassword" class="form-control" placeholder="Password"
                        required>
-                <button @click="login" class="btn btn-lg btn-primary btn-block btn-signin">Sign in</button>
+                <button type="submit" class="btn btn-lg btn-primary btn-block btn-signin">Sign in</button>
             </form>
         </div>
         <!-- /card-container -->
@@ -22,7 +22,19 @@
         name: 'Login',
         methods: {
             login() {
-
+                this.$auth.login({
+                    method: 'post',
+                    url: '/auth/login',
+                    data: {
+                        email: this.email,
+                        password: this.password
+                    },
+                    fetchUser: true,
+                    redirect: '/spa/',
+                    error: (data) => {
+                        alert(`Error while authenticating:\n${data}`);
+                    }
+                });
             }
         },
         data() {

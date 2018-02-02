@@ -3,26 +3,19 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./bootstrap');
 
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
 import App from './views/App'
 import Home from './views/Home'
 import Login from './views/Login'
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 Vue.use(VueRouter);
-
-//Vue.component('home', require('./components/HomeComponent.vue'));
-
 const router = new VueRouter({
     mode: 'history',
     routes: [
@@ -37,6 +30,15 @@ const router = new VueRouter({
             component: Login
         }
     ]
+});
+Vue.router = router;
+
+Vue.use(VueAxios, axios);
+Vue.axios.defaults.baseURL = 'http://localhost:8000/api';
+Vue.use(require('../../../node_modules/vue-auth/node_modules/@websanova/vue-auth'), {
+    auth: require('../../../node_modules/vue-auth/node_modules/@websanova/vue-auth/drivers/auth/bearer.js'),
+    http: require('../../../node_modules/vue-auth/node_modules/@websanova/vue-auth/drivers/http/axios.1.x.js'),
+    router: require('../../../node_modules/vue-auth/node_modules/@websanova/vue-auth/drivers/router/vue-router.2.x.js')
 });
 
 const app = new Vue({

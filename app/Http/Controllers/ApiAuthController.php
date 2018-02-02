@@ -32,7 +32,7 @@ class ApiAuthController extends Controller
      */
     public function user()
     {
-        return response()->json(auth()->user());
+        return response()->json(JWTAuth::parseToken()->authenticate());
     }
 
     /**
@@ -54,7 +54,8 @@ class ApiAuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        $token = JWTAuth::getToken();
+        return $this->respondWithToken(JWTAuth::refresh($token));
     }
 
     /**
