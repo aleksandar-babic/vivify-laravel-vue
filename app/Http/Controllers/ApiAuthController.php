@@ -18,7 +18,7 @@ class ApiAuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = JWTAuth::attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -30,7 +30,7 @@ class ApiAuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function user()
     {
         return response()->json(auth()->user());
     }
@@ -66,10 +66,14 @@ class ApiAuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => JWTFactory::getTTL() * 60
-        ]);
+        return response()
+            ->json([
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => JWTFactory::getTTL() * 60
+            ])
+            ->withHeaders([
+                'Authorization' => 'Bearer ' . $token
+            ]);
     }
 }
