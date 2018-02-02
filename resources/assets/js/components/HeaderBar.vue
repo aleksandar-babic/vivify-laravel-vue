@@ -5,8 +5,15 @@
                 <a class="navbar-brand" href="#">{{appName}}</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><router-link to="/spa">Dashboard</router-link></li>
-                <li><router-link to="/spa/login">Login</router-link></li>
+                <li>
+                    <router-link to="/spa">Dashboard</router-link>
+                </li>
+                <li>
+                    <router-link to="/spa/login" v-if="!$auth.check()">Login</router-link>
+                </li>
+                <li>
+                    <a @click.prevent="logout()" v-if="$auth.check()" href="#">Logout</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -15,7 +22,19 @@
 <script>
     export default {
         name: 'HeaderBar',
-        data () {
+        methods: {
+            logout() {
+                this.$auth.logout({
+                    makeRequest: true,
+                    data: {},
+                    error: (data) => {
+                        alert(`Error while logging out:\n${data}`);
+                    },
+                    redirect: '/spa/login'
+                });
+            }
+        },
+        data() {
             return {
                 appName: 'TODO SPA'
             }

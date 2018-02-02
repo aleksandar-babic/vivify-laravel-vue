@@ -24,7 +24,7 @@ Route::group([
 
     Route::post('login', 'ApiAuthController@login');
     Route::post('logout', 'ApiAuthController@logout');
-    Route::post('refresh', 'ApiAuthController@refresh');
+    Route::get('refresh', 'ApiAuthController@refresh');
     Route::get('user', 'ApiAuthController@user');
 
 });
